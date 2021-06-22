@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{2F696C68-7A60-4B05-9F3E-D98059E3859C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="HTProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="backend\HTBackendProj.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="HTProject">
+        <MSBuild Projects="HTProject.dproj"/>
+    </Target>
+    <Target Name="HTProject:Clean">
+        <MSBuild Projects="HTProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="HTProject:Make">
+        <MSBuild Projects="HTProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="HTBackendProj">
+        <MSBuild Projects="backend\HTBackendProj.dproj"/>
+    </Target>
+    <Target Name="HTBackendProj:Clean">
+        <MSBuild Projects="backend\HTBackendProj.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="HTBackendProj:Make">
+        <MSBuild Projects="backend\HTBackendProj.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="HTProject;HTBackendProj"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="HTProject:Clean;HTBackendProj:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="HTProject:Make;HTBackendProj:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
