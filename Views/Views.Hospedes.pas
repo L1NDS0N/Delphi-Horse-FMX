@@ -216,24 +216,23 @@ end;
 
 procedure TfrmHospedes.Salvar;
 begin
-  ShowMessage(IntTOStr(FService.mtCadastroHospedesid.AsInteger));
-  //try
-  //if (FService.mtCadastroHospedesid.AsInteger > 0) then
-  //FService.mtCadastroHospedes.Edit
-  //else
-  //FService.mtCadastroHospedes.Append;
-  //
-  //FService.mtCadastroHospedesnome.AsString := edtNome.Text;
-  //FService.mtCadastroHospedesdocumento.AsString := edtDocumento.Text;
-  //FService.mtCadastroHospedestelefone.AsString := edtTelefone.Text;
-  //FService.mtCadastroHospedes.Post;
-  //FService.Salvar;
-  //Listar;
-  //tclCadastro.Previous();
-  //except
-  //on E: Exception do
-  //ShowMessage(E.Message);
-  //end;
+  try
+    if (FService.mtCadastroHospedesid.AsInteger > 0) then
+      FService.mtCadastroHospedes.Edit
+    else
+      FService.mtCadastroHospedes.Append;
+
+    FService.mtCadastroHospedesnome.AsString := edtNome.Text;
+    FService.mtCadastroHospedesdocumento.AsString := edtDocumento.Text;
+    FService.mtCadastroHospedestelefone.AsString := edtTelefone.Text;
+    FService.mtCadastroHospedes.Post;
+    FService.Salvar;
+    Listar;
+    tclCadastro.Previous();
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
 end;
 
 end.
