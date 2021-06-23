@@ -1,4 +1,4 @@
-unit Providers.Frames.Hospede;
+unit Providers.Frames.Checkin;
 
 interface
 
@@ -19,21 +19,22 @@ uses
   Providers.Types;
 
 type
-  TFrameHospede = class(TFrame)
+  TFrameCheckin = class(TFrame)
     retContent: TRectangle;
-    lblDocumento: TLabel;
-    lblNome: TLabel;
+    lblEntrada: TLabel;
+    lblHospede: TLabel;
     crlDelete: TCircle;
     imgDelete: TPath;
     lineSeparator: TLine;
     crlEdit: TCircle;
     imgEdit: TPath;
-    lblTelefone: TLabel;
+    lblSaida: TLabel;
+    chkPossuiCarro: TCheckBox;
+    procedure crlEditClick(Sender: TObject);
     procedure crlDeleteClick(Sender: TObject);
     procedure crlDeleteTap(Sender: TObject; const Point: TPointF);
     procedure crlEditTap(Sender: TObject; const Point: TPointF);
-    procedure crlEditClick(Sender: TObject);
-    procedure retContentDblClick(Sender: TObject);
+    procedure retContentClick(Sender: TObject);
     private
       FId: string;
       FOnDelete: TEventCallBack;
@@ -47,9 +48,8 @@ type
 implementation
 
 {$R *.fmx}
-{ TFrameHospede }
 
-procedure TFrameHospede.crlDeleteClick(Sender: TObject);
+procedure TFrameCheckin.crlDeleteClick(Sender: TObject);
 begin
   {$IFDEF MSWINDOWS}
   if Assigned(FOnDelete) then
@@ -57,7 +57,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TFrameHospede.crlDeleteTap(Sender: TObject; const Point: TPointF);
+procedure TFrameCheckin.crlDeleteTap(Sender: TObject; const Point: TPointF);
 begin
   {$IFNDEF MSWINDOWS}
   if Assigned(FOnDelete) then
@@ -65,7 +65,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TFrameHospede.crlEditClick(Sender: TObject);
+procedure TFrameCheckin.crlEditClick(Sender: TObject);
 begin
   {$IFDEF MSWINDOWS}
   if Assigned(FOnUpdate) then
@@ -73,7 +73,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TFrameHospede.crlEditTap(Sender: TObject; const Point: TPointF);
+procedure TFrameCheckin.crlEditTap(Sender: TObject; const Point: TPointF);
 begin
   {$IFNDEF MSWINDOWS}
   if Assigned(FOnUpdate) then
@@ -81,7 +81,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TFrameHospede.retContentDblClick(Sender: TObject);
+procedure TFrameCheckin.retContentClick(Sender: TObject);
 begin
   {$IFDEF MSWINDOWS}
   if Assigned(FOnUpdate) then

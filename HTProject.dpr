@@ -3,8 +3,8 @@ program HTProject;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  Views.Hospedes in 'Views\Views.Hospedes.pas' {frmHospedes} ,
-  Providers.Frames.Hospede in 'providers\Providers.Frames.Hospede.pas' {FrameHospede: TFrame} ,
+  Views.Hospedes in 'Views\Views.Hospedes.pas' {frmHospedes},
+  Providers.Frames.Hospede in 'providers\Providers.Frames.Hospede.pas' {FrameHospede: TFrame},
   Providers.Types in 'providers\Providers.Types.pas',
   Services.Hospedes in 'services\Services.Hospedes.pas' {ServiceHospedes: TDataModule};
 
@@ -14,6 +14,6 @@ begin
 ReportMemoryLeaksOnShutdown := True;
 Application.Initialize;
 Application.CreateForm(TfrmHospedes, frmHospedes);
-Application.Run;
+  Application.Run;
 
 end.

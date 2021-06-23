@@ -76,17 +76,20 @@ type
     ColorAnimation2: TColorAnimation;
     Rectangle4: TRectangle;
     Label3: TLabel;
+    Layout2: TLayout;
     procedure FormShow(Sender: TObject);
     procedure Circle1Click(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure Circle4Click(Sender: TObject);
     private
       FService: TServiceHospedes;
-      procedure Salvar;
-      procedure Listar;
-      procedure Incluir;
+      procedure SalvarHospedes;
+      procedure ListarHospedes;
+      procedure ListarCheckins;
+      procedure IncluirHospedes;
       procedure OnDelete(const ASender: TFrame; const AId: string);
       procedure OnUpdate(const ASender: TFrame; const AId: string);
     public
@@ -110,12 +113,17 @@ end;
 
 procedure TfrmHospedes.btnSalvarClick(Sender: TObject);
 begin
-  Salvar;
+  SalvarHospedes;
 end;
 
 procedure TfrmHospedes.Circle1Click(Sender: TObject);
 begin
-  Incluir;
+  IncluirHospedes;
+end;
+
+procedure TfrmHospedes.Circle4Click(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmHospedes.FormCreate(Sender: TObject);
@@ -131,10 +139,10 @@ end;
 procedure TfrmHospedes.FormShow(Sender: TObject);
 begin
   tclCadastro.ActiveTab := tabBuscar;
-  Listar;
+  ListarHospedes;
 end;
 
-procedure TfrmHospedes.Incluir;
+procedure TfrmHospedes.IncluirHospedes;
 begin
   edtNome.Text := EmptyStr;
   edtDocumento.Text := EmptyStr;
@@ -143,7 +151,46 @@ begin
   tclCadastro.Next();
 end;
 
-procedure TfrmHospedes.Listar;
+procedure TfrmHospedes.ListarCheckins;
+var
+  LFrame: TFrameCheckin;
+  I: Integer;
+begin
+  vsbPesquisa.BeginUpdate;
+  try
+    try
+      for I := Pred(vsbPesquisa.Content.ControlsCount) downto 0 do
+        vsbPesquisa.Content.Controls[I].DisposeOf;
+      FService.Listar;
+      FService.mtPesquisaHospedes.First;
+      while not FService.mtPesquisaHospedes.Eof do
+      begin
+        LFrame := TFrameHospede.Create(vsbPesquisa);
+        LFrame.Parent := vsbPesquisa;
+        LFrame.Align := TAlignLayout.Top;
+        LFrame.Position.X := vsbPesquisa.Content.ControlsCount * LFrame.Height;
+
+        LFrame.Id := FService.mtPesquisaHospedesid.AsString;
+        LFrame.Name := LFrame.ClassName + FService.mtPesquisaHospedesid.AsString;
+        LFrame.lblNome.Text := FService.mtPesquisaHospedesnome.AsString;
+        LFrame.lblDocumento.Text := FService.mtPesquisaHospedesdocumento.AsString;
+        LFrame.lblTelefone.Text := FService.mtPesquisaHospedestelefone.AsString;
+
+        LFrame.OnDelete := Self.OnDelete;
+        LFrame.OnUpdate := Self.OnUpdate;
+        FService.mtPesquisaHospedes.Next;
+      end;
+    except
+      on E: Exception do
+        ShowMessage(E.Message);
+    end;
+  finally
+    vsbPesquisa.EndUpdate;
+  end;
+
+end;
+
+procedure TfrmHospedes.ListarHospedes;
 var
   LFrame: TFrameHospede;
   I: Integer;
@@ -214,7 +261,7 @@ begin
   end;
 end;
 
-procedure TfrmHospedes.Salvar;
+procedure TfrmHospedes.SalvarHospedes;
 begin
   try
     if (FService.mtCadastroHospedesid.AsInteger > 0) then
@@ -227,7 +274,7 @@ begin
     FService.mtCadastroHospedestelefone.AsString := edtTelefone.Text;
     FService.mtCadastroHospedes.Post;
     FService.Salvar;
-    Listar;
+    ListarHospedes;
     tclCadastro.Previous();
   except
     on E: Exception do

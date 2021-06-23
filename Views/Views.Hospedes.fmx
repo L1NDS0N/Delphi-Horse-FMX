@@ -26,7 +26,7 @@ object frmHospedes: TfrmHospedes
       Size.Width = 800.000000000000000000
       Size.Height = 600.000000000000000000
       Size.PlatformDefault = False
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       TabPosition = PlatformDefault
       Sizes = (
@@ -85,9 +85,9 @@ object frmHospedes: TfrmHospedes
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\guest.p' +
               'ng'
           end>
-        IsSelected = True
+        IsSelected = False
         ImageIndex = 1
-        Size.Width = 104.000000000000000000
+        Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'tabitemcustom'
@@ -517,9 +517,9 @@ object frmHospedes: TfrmHospedes
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\recepti' +
               'onist.png'
           end>
-        IsSelected = False
+        IsSelected = True
         ImageIndex = 0
-        Size.Width = 104.000000000000000000
+        Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'tabitemcustom'
@@ -565,6 +565,13 @@ object frmHospedes: TfrmHospedes
                 TabOrder = 0
                 Viewport.Width = 800.000000000000000000
                 Viewport.Height = 463.000000000000000000
+                object Layout2: TLayout
+                  Align = Client
+                  Size.Width = 800.000000000000000000
+                  Size.Height = 463.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                end
               end
               object Panel1: TPanel
                 Align = Bottom
@@ -595,7 +602,7 @@ object frmHospedes: TfrmHospedes
                     Size.Width = 50.000000000000000000
                     Size.Height = 50.000000000000000000
                     Size.PlatformDefault = False
-                    OnClick = Circle1Click
+                    OnClick = Circle4Click
                     object Path1: TPath
                       Align = Center
                       Data.Path = {
