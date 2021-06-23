@@ -104,134 +104,136 @@ uses
 {$R *.fmx}
 
 procedure TfrmHospedes.btnCancelarClick(Sender: TObject);
-  begin
-    tclCadastro.Previous();
-  end;
+begin
+  tclCadastro.Previous();
+end;
 
 procedure TfrmHospedes.btnSalvarClick(Sender: TObject);
-  begin
-    Salvar;
-  end;
+begin
+  Salvar;
+end;
 
 procedure TfrmHospedes.Circle1Click(Sender: TObject);
-  begin
-    Incluir;
-  end;
+begin
+  Incluir;
+end;
 
 procedure TfrmHospedes.FormCreate(Sender: TObject);
-  begin
-    FService := TServiceHospedes.Create(Self);
-  end;
+begin
+  FService := TServiceHospedes.Create(Self);
+end;
 
 procedure TfrmHospedes.FormDestroy(Sender: TObject);
-  begin
-    FService.Free;
-  end;
+begin
+  FService.Free;
+end;
 
 procedure TfrmHospedes.FormShow(Sender: TObject);
-  begin
-    tclCadastro.ActiveTab := tabBuscar;
-    Listar;
-  end;
+begin
+  tclCadastro.ActiveTab := tabBuscar;
+  Listar;
+end;
 
 procedure TfrmHospedes.Incluir;
-  begin
-    edtNome.Text := EmptyStr;
-    edtDocumento.Text := EmptyStr;
-    edtTelefone.Text := EmptyStr;
-    tclCadastro.Next();
-  end;
+begin
+  edtNome.Text := EmptyStr;
+  edtDocumento.Text := EmptyStr;
+  edtTelefone.Text := EmptyStr;
+  FService.mtCadastroHospedes.Append;
+  tclCadastro.Next();
+end;
 
 procedure TfrmHospedes.Listar;
-  var
-    LFrame: TFrameHospede;
-    I: Integer;
-  begin
-    vsbPesquisa.BeginUpdate;
+var
+  LFrame: TFrameHospede;
+  I: Integer;
+begin
+  vsbPesquisa.BeginUpdate;
+  try
     try
-      try
-        for I := Pred(vsbPesquisa.Content.ControlsCount) downto 0 do
-          vsbPesquisa.Content.Controls[I].DisposeOf;
-        FService.Listar;
-        FService.mtPesquisaHospedes.First;
-        while not FService.mtPesquisaHospedes.Eof do
-          begin
-            LFrame := TFrameHospede.Create(vsbPesquisa);
-            LFrame.Parent := vsbPesquisa;
-            LFrame.Align := TAlignLayout.Top;
-            LFrame.Position.X := vsbPesquisa.Content.ControlsCount * LFrame.Height;
+      for I := Pred(vsbPesquisa.Content.ControlsCount) downto 0 do
+        vsbPesquisa.Content.Controls[I].DisposeOf;
+      FService.Listar;
+      FService.mtPesquisaHospedes.First;
+      while not FService.mtPesquisaHospedes.Eof do
+      begin
+        LFrame := TFrameHospede.Create(vsbPesquisa);
+        LFrame.Parent := vsbPesquisa;
+        LFrame.Align := TAlignLayout.Top;
+        LFrame.Position.X := vsbPesquisa.Content.ControlsCount * LFrame.Height;
 
-            LFrame.Id := FService.mtPesquisaHospedesid.AsString;
-            LFrame.Name := LFrame.ClassName + FService.mtPesquisaHospedesid.AsString;
-            LFrame.lblNome.Text := FService.mtPesquisaHospedesnome.AsString;
-            LFrame.lblDocumento.Text := FService.mtPesquisaHospedesdocumento.AsString;
-            LFrame.lblTelefone.Text := FService.mtPesquisaHospedestelefone.AsString;
+        LFrame.Id := FService.mtPesquisaHospedesid.AsString;
+        LFrame.Name := LFrame.ClassName + FService.mtPesquisaHospedesid.AsString;
+        LFrame.lblNome.Text := FService.mtPesquisaHospedesnome.AsString;
+        LFrame.lblDocumento.Text := FService.mtPesquisaHospedesdocumento.AsString;
+        LFrame.lblTelefone.Text := FService.mtPesquisaHospedestelefone.AsString;
 
-            LFrame.OnDelete := Self.OnDelete;
-            LFrame.OnUpdate := Self.OnUpdate;
-            FService.mtPesquisaHospedes.Next;
-          end;
-      except
-        on E: Exception do
-          ShowMessage(E.Message);
+        LFrame.OnDelete := Self.OnDelete;
+        LFrame.OnUpdate := Self.OnUpdate;
+        FService.mtPesquisaHospedes.Next;
       end;
-    finally
-      vsbPesquisa.EndUpdate;
+    except
+      on E: Exception do
+        ShowMessage(E.Message);
     end;
-
+  finally
+    vsbPesquisa.EndUpdate;
   end;
+
+end;
 
 procedure TfrmHospedes.OnDelete(const ASender: TFrame; const AId: string);
-  begin
-    try
-      TDialogService.MessageDialog('Tem certeza que deseja deletar?', TMsgDlgType.mtConfirmation, FMX.Dialogs.mbYesNo,
-        TMsgDlgBtn.mbNo, 0,
-          procedure(const AResult: TModalResult)
-          begin
-            if AResult <> mrYes then
-              abort;
-          end);
-      FService.Delete(AId);
-      ASender.DisposeOf;
-    except
-      on E: Exception do
-        ShowMessage(E.Message);
-    end;
+begin
+  try
+    TDialogService.MessageDialog('Tem certeza que deseja deletar?', TMsgDlgType.mtConfirmation, FMX.Dialogs.mbYesNo,
+      TMsgDlgBtn.mbNo, 0,
+        procedure(const AResult: TModalResult)
+      begin
+        if AResult <> mrYes then
+          abort;
+      end);
+    FService.Delete(AId);
+    ASender.DisposeOf;
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
   end;
+end;
 
 procedure TfrmHospedes.OnUpdate(const ASender: TFrame; const AId: string);
-  begin
-    try
-      FService.GetById(AId);
-      edtNome.Text := FService.mtCadastroHospedesnome.AsString;
-      edtDocumento.Text := FService.mtCadastroHospedesdocumento.AsString;
-      edtTelefone.Text := FService.mtCadastroHospedestelefone.AsString;
-      tclCadastro.Next();
-    except
-      on E: Exception do
-        ShowMessage(E.Message);
-    end;
+begin
+  try
+    FService.GetById(AId);
+    edtNome.Text := FService.mtCadastroHospedesnome.AsString;
+    edtDocumento.Text := FService.mtCadastroHospedesdocumento.AsString;
+    edtTelefone.Text := FService.mtCadastroHospedestelefone.AsString;
+    tclCadastro.Next();
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
   end;
+end;
 
 procedure TfrmHospedes.Salvar;
-  begin
-    try
-      if (FService.mtCadastroHospedesid.AsInteger > 0) then
-        FService.mtCadastroHospedes.Edit
-      else
-        FService.mtCadastroHospedes.Append;
-
-      FService.mtCadastroHospedesnome.AsString := edtNome.Text;
-      FService.mtCadastroHospedesdocumento.AsString := edtDocumento.Text;
-      FService.mtCadastroHospedestelefone.AsString := edtTelefone.Text;
-      FService.mtCadastroHospedes.Post;
-      FService.Salvar;
-      Listar;
-      tclCadastro.Previous();
-    except
-      on E: Exception do
-        ShowMessage(E.Message);
-    end;
-  end;
+begin
+  ShowMessage(IntTOStr(FService.mtCadastroHospedesid.AsInteger));
+  //try
+  //if (FService.mtCadastroHospedesid.AsInteger > 0) then
+  //FService.mtCadastroHospedes.Edit
+  //else
+  //FService.mtCadastroHospedes.Append;
+  //
+  //FService.mtCadastroHospedesnome.AsString := edtNome.Text;
+  //FService.mtCadastroHospedesdocumento.AsString := edtDocumento.Text;
+  //FService.mtCadastroHospedestelefone.AsString := edtTelefone.Text;
+  //FService.mtCadastroHospedes.Post;
+  //FService.Salvar;
+  //Listar;
+  //tclCadastro.Previous();
+  //except
+  //on E: Exception do
+  //ShowMessage(E.Message);
+  //end;
+end;
 
 end.

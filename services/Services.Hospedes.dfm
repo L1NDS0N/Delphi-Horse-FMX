@@ -40,9 +40,10 @@ object ServiceHospedes: TServiceHospedes
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 176
+    Left = 192
     Top = 16
     object mtPesquisaHospedesid: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
