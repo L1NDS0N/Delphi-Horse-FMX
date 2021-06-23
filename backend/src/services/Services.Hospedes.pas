@@ -78,7 +78,7 @@ procedure TServiceHospedes.DataModuleCreate(Sender: TObject);
 procedure TServiceHospedes.Delete(AId: integer);
   begin
     qryCadastroHospedes.SQL.Clear;
-    qryCadastroHospedes.SQL.Add('DELETE FROM CLIENTES WHERE ID = :ID');
+    qryCadastroHospedes.SQL.Add('DELETE FROM HOSPEDES WHERE ID = :ID');
     qryCadastroHospedes.ParamByName('ID').Value := AId;
     qryCadastroHospedes.ExecSQL;
   end;

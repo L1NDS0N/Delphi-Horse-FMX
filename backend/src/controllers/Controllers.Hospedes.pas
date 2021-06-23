@@ -13,6 +13,7 @@ uses
   System.JSON,
   System.SysUtils,
   Vcl.Dialogs,
+  Horse.Commons,
   Services.Connection;
 
 procedure DoList(Req: THorseRequest; Res: THorseResponse; Next: TProc);

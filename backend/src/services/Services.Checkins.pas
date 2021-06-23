@@ -73,7 +73,7 @@ procedure TServiceCheckins.DataModuleCreate(Sender: TObject);
 procedure TServiceCheckins.Delete(AId: integer);
   begin
     qryCadastroCheckins.SQL.Clear;
-    qryCadastroCheckins.SQL.Add('DELETE FROM CLIENTES WHERE ID = :ID');
+    qryCadastroCheckins.SQL.Add('DELETE FROM CHECKIN WHERE ID = :ID');
     qryCadastroCheckins.ParamByName('ID').Value := AId;
     qryCadastroCheckins.ExecSQL;
   end;
