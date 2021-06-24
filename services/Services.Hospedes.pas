@@ -40,10 +40,8 @@ type
       procedure GetById(const AId: string);
   end;
 
-var
-  baseURL: String;
-  //na inicialização do projeto, remover a declaração da criação do form durante o tempo de execução
-  //ServiceHospedes: TServiceHospedes;
+const
+  baseURL = 'http://localhost:9000';
 
 implementation
 
@@ -52,7 +50,6 @@ implementation
 
 procedure TServiceHospedes.DataModuleCreate(Sender: TObject);
 begin
-  baseURL := 'http://localhost:9000';
   mtCadastroHospedes.Open;
   mtPesquisaHospedes.Open;
 end;
