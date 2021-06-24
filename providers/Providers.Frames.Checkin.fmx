@@ -1,12 +1,12 @@
 object FrameCheckin: TFrameCheckin
   Size.Width = 320.000000000000000000
-  Size.Height = 120.000000000000000000
+  Size.Height = 90.000000000000000000
   Size.PlatformDefault = False
   object retContent: TRectangle
     Align = Client
-    Fill.Color = claWhite
+    Fill.Kind = None
     Size.Width = 320.000000000000000000
-    Size.Height = 120.000000000000000000
+    Size.Height = 90.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
     OnClick = retContentClick
@@ -75,7 +75,7 @@ object FrameCheckin: TFrameCheckin
       Margins.Left = 10.000000000000000000
       Margins.Right = 10.000000000000000000
       Position.X = 10.000000000000000000
-      Position.Y = 119.000000000000000000
+      Position.Y = 89.000000000000000000
       Size.Width = 300.000000000000000000
       Size.Height = 1.000000000000000000
       Size.PlatformDefault = False
@@ -124,16 +124,25 @@ object FrameCheckin: TFrameCheckin
       Text = 'Sa'#237'da'
       TabOrder = 2
     end
-  end
-  object chkPossuiCarro: TCheckBox
-    CanFocus = False
-    Locked = True
-    Position.X = 10.000000000000000000
-    Position.Y = 84.000000000000000000
-    Size.Width = 120.000000000000000000
-    Size.Height = 30.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 1
-    Text = 'Possui ve'#237'culo'
+    object chkPossuiCarro: TCheckBox
+      CanFocus = False
+      Enabled = False
+      Locked = True
+      Position.X = 115.000000000000000000
+      Position.Y = 58.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 34.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Possui ve'#237'culo'
+    end
+    object FloatAnimation1: TFloatAnimation
+      Enabled = True
+      Duration = 0.500000000000000000
+      PropertyName = 'Opacity'
+      StartValue = 0.500000000000000000
+      StopValue = 1.000000000000000000
+      Trigger = 'IsMouseOver=true'
+    end
   end
 end

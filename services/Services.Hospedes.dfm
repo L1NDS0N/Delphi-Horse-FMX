@@ -33,6 +33,7 @@ object ServiceHospedes: TServiceHospedes
     end
   end
   object mtPesquisaHospedes: TFDMemTable
+    Active = True
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]

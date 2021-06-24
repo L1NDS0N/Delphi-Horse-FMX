@@ -16,7 +16,7 @@ uses
   FMX.StdCtrls,
   FMX.Objects,
   FMX.Controls.Presentation,
-  Providers.Types;
+  Providers.Types, FMX.Ani;
 
 type
   TFrameCheckin = class(TFrame)
@@ -30,6 +30,7 @@ type
     imgEdit: TPath;
     lblSaida: TLabel;
     chkPossuiCarro: TCheckBox;
+    FloatAnimation1: TFloatAnimation;
     procedure crlEditClick(Sender: TObject);
     procedure crlDeleteClick(Sender: TObject);
     procedure crlDeleteTap(Sender: TObject; const Point: TPointF);

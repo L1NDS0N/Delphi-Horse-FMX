@@ -155,8 +155,8 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Views\Views.Hospedes.pas">
-            <Form>frmHospedes</Form>
+        <DCCReference Include="Views\Views.Principal.pas">
+            <Form>frmPrincipal</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="providers\Providers.Frames.Hospede.pas">
@@ -167,6 +167,16 @@
         <DCCReference Include="providers\Providers.Types.pas"/>
         <DCCReference Include="services\Services.Hospedes.pas">
             <Form>ServiceHospedes</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="providers\Providers.Frames.Checkin.pas">
+            <Form>FrameCheckin</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="services\Services.Checkins.pas">
+            <Form>ServiceCheckin</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
