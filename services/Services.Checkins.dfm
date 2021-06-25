@@ -29,6 +29,15 @@ object ServiceCheckin: TServiceCheckin
     object mtCadastroCheckinhospede: TIntegerField
       FieldName = 'hospede'
     end
+    object mtCadastroCheckinlkphospede: TStringField
+      FieldKind = fkLookup
+      FieldName = 'lkphospede'
+      LookupDataSet = ServiceHospedes.mtPesquisaHospedes
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'hospede'
+      Lookup = True
+    end
   end
   object mtPesquisaCheckin: TFDMemTable
     FieldDefs = <>
@@ -48,6 +57,7 @@ object ServiceCheckin: TServiceCheckin
     Left = 72
     Top = 80
     object mtPesquisaCheckinid: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
     object mtPesquisaCheckindataentrada: TDateField

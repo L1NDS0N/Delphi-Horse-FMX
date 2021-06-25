@@ -95,7 +95,7 @@ object frmPrincipal: TfrmPrincipal
         StyleLookup = 'tabitemcustom'
         TabOrder = 0
         Text = 'H'#243'spedes'
-        OnClick = tabHospedesClick
+        OnClick = FormShow
         object tclCadastro: TTabControl
           Align = Client
           Size.Width = 800.000000000000000000
@@ -839,18 +839,23 @@ object frmPrincipal: TfrmPrincipal
                   Align = Top
                   StyleLookup = 'cbHospedeStyle1'
                   TabOrder = 3
-                  DropDownCount = 100
-                  ItemHeight = 20.000000000000000000
+                  DropDownCount = 10
+                  ItemHeight = 40.000000000000000000
                   ItemIndex = -1
+                  TextSettings.Font.Family = 'Roboto'
+                  TextSettings.Font.Size = 20.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF2A2F32
                   Position.X = 100.000000000000000000
                   Position.Y = 90.000000000000000000
                   Hint = 'Selecione um h'#243'spede'
-                  StyledSettings = [Family, Size, Style, FontColor, Other]
+                  StyledSettings = [Other]
                   Size.Width = 600.000000000000000000
                   Size.Height = 40.000000000000000000
                   Size.PlatformDefault = False
                   ParentShowHint = False
                   ShowHint = True
+                  OnChangeTracking = cbHospedeChangeTracking
                   object Line2: TLine
                     Align = Bottom
                     LineType = Bottom
@@ -859,6 +864,24 @@ object frmPrincipal: TfrmPrincipal
                     Size.Height = 1.000000000000000000
                     Size.PlatformDefault = False
                     Stroke.Color = claDimgray
+                  end
+                  object cbIdHospede: TComboEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Right
+                    StyleLookup = 'transparentedit'
+                    TabOrder = 0
+                    CanFocus = False
+                    ItemHeight = 19.000000000000000000
+                    ItemIndex = -1
+                    TextSettings.Font.Family = 'Roboto'
+                    TextSettings.Font.Size = 18.000000000000000000
+                    Position.X = 540.000000000000000000
+                    StyledSettings = [Style, FontColor]
+                    Enabled = False
+                    Margins.Right = 20.000000000000000000
+                    Size.Width = 40.000000000000000000
+                    Size.Height = 39.000000000000000000
+                    Size.PlatformDefault = False
                   end
                 end
                 object Panel5: TPanel
@@ -903,7 +926,7 @@ object frmPrincipal: TfrmPrincipal
                   end
                 end
                 object dtEntrada: TDateEdit
-                  Date = 44371.000000000000000000
+                  Date = 44372.000000000000000000
                   TodayDefault = True
                   DateFormatKind = Long
                   Align = Top
@@ -931,7 +954,7 @@ object frmPrincipal: TfrmPrincipal
                   end
                 end
                 object dtSaida: TDateEdit
-                  Date = 44371.000000000000000000
+                  Date = 44372.000000000000000000
                   TodayDefault = True
                   DateFormatKind = Long
                   Align = Top
@@ -1017,19 +1040,8 @@ object frmPrincipal: TfrmPrincipal
                     TextSettings.Font.Family = 'Roboto'
                     TextSettings.Font.Size = 20.000000000000000000
                     TextSettings.FontColor = claWhite
-                    OnClick = btnSalvarClick
+                    OnClick = SpeedButton2Click
                   end
-                end
-                object Edit2: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  StyleLookup = 'transparentedit'
-                  TabOrder = 1
-                  TextSettings.Font.Family = 'Roboto'
-                  TextSettings.Font.Size = 20.000000000000000000
-                  TextSettings.FontColor = xFF2A2F32
-                  Position.X = 128.000000000000000000
-                  Position.Y = 96.000000000000000000
-                  StyledSettings = [Style]
                 end
               end
             end
@@ -1896,7 +1908,7 @@ object frmPrincipal: TfrmPrincipal
           064011536F75726365526563742E426F74746F6D05000000000000809A084000
           0013546F756368416E696D6174696F6E2E4C696E6B0E0000000000}
       end>
-    Left = 680
-    Top = 120
+    Left = 744
+    Top = 96
   end
 end
