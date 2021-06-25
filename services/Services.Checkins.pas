@@ -35,6 +35,7 @@ type
     mtPesquisaCheckinadicionalveiculo: TBooleanField;
     mtPesquisaCheckinhospede: TIntegerField;
     mtPesquisaCheckinlkpHospede: TStringField;
+    mtCadastroCheckinlkphospede: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     private
       { Private declarations }
@@ -102,8 +103,8 @@ begin
     LResponse := LRequest.ResourceSuffix(mtCadastroCheckinid.AsString).Put
   else
     LResponse := LRequest.Post;
-  if not(LResponse.StatusCode in [201, 204]) then
-    raise Exception.Create(LResponse.JSONValue.GetValue<string>('error'));
+  if not(LResponse.StatusCode in [200, 201, 204]) then
+  raise Exception.Create(LResponse.JSONValue.GetValue<string>('error'));
   mtCadastroCheckin.EmptyDataSet;
 
 end;

@@ -93,7 +93,7 @@ begin
     LResponse := LRequest.ResourceSuffix(mtCadastroHospedesid.AsString).Put
   else
     LResponse := LRequest.Post;
-  if not(LResponse.StatusCode in [201, 204]) then
+  if not(LResponse.StatusCode in [200, 201, 204]) then
     raise Exception.Create(LResponse.JSONValue.GetValue<string>('error'));
   mtCadastroHospedes.EmptyDataSet;
 end;
