@@ -28,7 +28,10 @@ uses
   Services.Checkins,
   FMX.Colors,
   FMX.ListBox,
-  FMX.DateTimeCtrls, FMX.ComboEdit, FMX.EditBox, FMX.ComboTrackBar;
+  FMX.DateTimeCtrls,
+  FMX.ComboEdit,
+  FMX.EditBox,
+  FMX.ComboTrackBar;
 
 type
   TfrmPrincipal = class(TForm)
@@ -93,7 +96,6 @@ type
     Rectangle7: TRectangle;
     SpeedButton2: TSpeedButton;
     cbHospede: TComboEdit;
-    Edit2: TEdit;
     Line2: TLine;
     Panel5: TPanel;
     Switch1: TSwitch;
@@ -104,6 +106,7 @@ type
     StyleBook1: TStyleBook;
     Line1: TLine;
     Line3: TLine;
+    cbIdHospede: TComboEdit;
     procedure FormShow(Sender: TObject);
     procedure Circle1Click(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -113,19 +116,24 @@ type
     procedure Circle4Click(Sender: TObject);
     procedure tabCheckinsClick(Sender: TObject);
     procedure tabCheckinsTap(Sender: TObject; const Point: TPointF);
-    procedure tabHospedesClick(Sender: TObject);
     procedure tabHospedesTap(Sender: TObject; const Point: TPointF);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure cbHospedeChangeTracking(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
     private
       FServiceHospede: TServiceHospedes;
       FServiceCheckin: TServiceCheckin;
       procedure SalvarHospedes;
       procedure ListarHospedes;
-      procedure ListarCheckins;
       procedure IncluirHospedes;
+      procedure OnDeleteHospede(const ASender: TFrame; const AId: string);
+      procedure OnUpdateHospede(const ASender: TFrame; const AId: string);
+
+      procedure SalvarCheckin;
       procedure IncluirCheckins;
-      procedure OnDelete(const ASender: TFrame; const AId: string);
-      procedure OnUpdate(const ASender: TFrame; const AId: string);
+      procedure ListarCheckins;
+      procedure OnDeleteCheckin(const ASender: TFrame; const AId: string);
+      procedure OnUpdateCheckin(const ASender: TFrame; const AId: string);
     public
       { Public declarations }
   end;
@@ -144,11 +152,17 @@ uses
 procedure TfrmPrincipal.btnCancelarClick(Sender: TObject);
 begin
   tclCadastro.Previous();
+  FServiceHospede.mtCadastroHospedes.Cancel;
 end;
 
 procedure TfrmPrincipal.btnSalvarClick(Sender: TObject);
 begin
   SalvarHospedes;
+end;
+
+procedure TfrmPrincipal.cbHospedeChangeTracking(Sender: TObject);
+begin
+  cbIdHospede.ItemIndex := cbHospede.ItemIndex;
 end;
 
 procedure TfrmPrincipal.Circle1Click(Sender: TObject);
@@ -158,7 +172,6 @@ end;
 
 procedure TfrmPrincipal.Circle4Click(Sender: TObject);
 begin
-  //
   IncluirCheckins;
 end;
 
@@ -176,43 +189,36 @@ end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
+  tclAbas.ActiveTab := tabHospedes;
   tclCadastro.ActiveTab := tabBuscar;
+  tclCadastroCheckin.ActiveTab := tabBuscarCheckin;
   ListarHospedes;
 end;
 
 procedure TfrmPrincipal.IncluirCheckins;
 begin
   try
-
+    cbHospede.Items.Clear;
     cbHospede.BeginUpdate;
-    FServiceCheckin.mtPesquisaCheckin.First;
-    while not FServiceCheckin.mtPesquisaCheckin.Eof do
+    FServiceHospede.mtPesquisaHospedes.First;
+    while not FServiceHospede.mtPesquisaHospedes.Eof do
     begin
-      cbHospede.Items.AddPair(IntToStr(FServiceCheckin.mtPesquisaCheckinhospede.AsInteger),
-        FServiceCheckin.mtPesquisaCheckinlkpHospede.AsString);
-
-//              cbHospede.Items.ValueFromIndex;
-
-      //cbHospede.ItemIndex := FServiceCheckin.mtPesquisaCheckinhospede.AsInteger;
-      //cbHospede.Items.Add(FServiceCheckin.mtPesquisaCheckinlkpHospede.AsString);
-
-      //cbHospede.Items.Insert(FServiceCheckin.mtPesquisaCheckinhospede.AsInteger-1,
-      //FServiceCheckin.mtPesquisaCheckinlkpHospede.AsString);
-
-      FServiceCheckin.mtPesquisaCheckin.Next;
+      cbHospede.Items.Add(FServiceHospede.mtPesquisaHospedesnome.AsString);
+      cbIdHospede.Items.Add(FServiceHospede.mtPesquisaHospedesid.AsString);
+      FServiceHospede.mtPesquisaHospedes.Next;
     end;
+  finally
+    cbHospede.Enabled := True;
+    cbHospede.Text := EmptyStr;
+    cbIdHospede.Text := EmptyStr;
+    dtEntrada.Date := Now;
+    dtSaida.Date := Now;
+    Switch1.IsChecked := False;
     cbHospede.SetFocus;
     cbHospede.EndUpdate;
-  finally
-
   end;
 
-  //cbHospede.Index := FServiceCheckin.mtPesquisaCheckinhospede.AsInteger;
-
-  dtEntrada.Date := Now;
-  dtSaida.Date := Now;
   FServiceCheckin.mtCadastroCheckin.Append;
-
   tclCadastroCheckin.Next;
 end;
 
@@ -247,12 +253,12 @@ begin
         LFrame.Id := FServiceCheckin.mtPesquisaCheckinid.AsString;
         LFrame.Name := LFrame.ClassName + FServiceCheckin.mtPesquisaCheckinhospede.AsString;
         LFrame.lblHospede.Text := FServiceCheckin.mtPesquisaCheckinlkpHospede.AsString;
-        LFrame.lblEntrada.Text := FServiceCheckin.mtPesquisaCheckindataentrada.AsString;
-        LFrame.lblSaida.Text := FServiceCheckin.mtPesquisaCheckindatasaida.AsString;
+        LFrame.lblEntrada.Text := 'Entrada: ' + FServiceCheckin.mtPesquisaCheckindataentrada.AsString;
+        LFrame.lblSaida.Text := 'Saída: ' + FServiceCheckin.mtPesquisaCheckindatasaida.AsString;
         LFrame.chkPossuiCarro.IsChecked := FServiceCheckin.mtPesquisaCheckinadicionalveiculo.AsBoolean;
 
-        LFrame.OnDelete := Self.OnDelete;
-        LFrame.OnUpdate := Self.OnUpdate;
+        LFrame.OnDelete := Self.OnDeleteCheckin;
+        LFrame.OnUpdate := Self.OnUpdateCheckin;
         FServiceCheckin.mtPesquisaCheckin.Next;
       end;
     except
@@ -290,8 +296,8 @@ begin
         LFrame.lblDocumento.Text := FServiceHospede.mtPesquisaHospedesdocumento.AsString;
         LFrame.lblTelefone.Text := FServiceHospede.mtPesquisaHospedestelefone.AsString;
 
-        LFrame.OnDelete := Self.OnDelete;
-        LFrame.OnUpdate := Self.OnUpdate;
+        LFrame.OnDelete := Self.OnDeleteHospede;
+        LFrame.OnUpdate := Self.OnUpdateHospede;
         FServiceHospede.mtPesquisaHospedes.Next;
       end;
     except
@@ -304,7 +310,7 @@ begin
 
 end;
 
-procedure TfrmPrincipal.OnDelete(const ASender: TFrame; const AId: string);
+procedure TfrmPrincipal.OnDeleteHospede(const ASender: TFrame; const AId: string);
 begin
   try
     TDialogService.MessageDialog('Tem certeza que deseja deletar?', TMsgDlgType.mtConfirmation, FMX.Dialogs.mbYesNo,
@@ -322,7 +328,25 @@ begin
   end;
 end;
 
-procedure TfrmPrincipal.OnUpdate(const ASender: TFrame; const AId: string);
+procedure TfrmPrincipal.OnDeleteCheckin(const ASender: TFrame; const AId: string);
+begin
+  try
+    TDialogService.MessageDialog('Tem certeza que deseja deletar?', TMsgDlgType.mtConfirmation, FMX.Dialogs.mbYesNo,
+      TMsgDlgBtn.mbNo, 0,
+      procedure(const AResult: TModalResult)
+      begin
+        if AResult <> mrYes then
+          abort;
+      end);
+    FServiceCheckin.Delete(AId);
+    ASender.DisposeOf;
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
+end;
+
+procedure TfrmPrincipal.OnUpdateHospede(const ASender: TFrame; const AId: string);
 begin
   try
     FServiceHospede.GetById(AId);
@@ -330,6 +354,47 @@ begin
     edtDocumento.Text := FServiceHospede.mtCadastroHospedesdocumento.AsString;
     edtTelefone.Text := FServiceHospede.mtCadastroHospedestelefone.AsString;
     tclCadastro.Next();
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
+end;
+
+procedure TfrmPrincipal.OnUpdateCheckin(const ASender: TFrame; const AId: string);
+begin
+  try
+    FServiceCheckin.GetById(AId);
+    cbHospede.Items.Clear;
+    cbHospede.Enabled := False;
+    cbIdHospede.Text := FServiceCheckin.mtCadastroCheckinhospede.AsString;
+    cbHospede.Text := FServiceCheckin.mtCadastroCheckinlkpHospede.AsString;
+    dtEntrada.DateTime := FServiceCheckin.mtCadastroCheckindataentrada.AsDateTime;
+    dtSaida.DateTime := FServiceCheckin.mtCadastroCheckindatasaida.AsDateTime;
+    Switch1.IsChecked := FServiceCheckin.mtCadastroCheckinadicionalveiculo.AsBoolean;
+    tclCadastroCheckin.Next();
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
+end;
+
+procedure TfrmPrincipal.SalvarCheckin;
+begin
+  try
+    if (FServiceCheckin.mtCadastroCheckinid.AsInteger > 0) then
+      FServiceCheckin.mtCadastroCheckin.Edit
+    else
+      FServiceCheckin.mtCadastroCheckin.Append;
+
+    FServiceCheckin.mtCadastroCheckinhospede.AsInteger := StrToInt(cbIdHospede.Text);
+    FServiceCheckin.mtCadastroCheckindataentrada.AsDateTime := dtEntrada.DateTime;
+    FServiceCheckin.mtCadastroCheckindatasaida.AsDateTime := dtSaida.DateTime;
+    FServiceCheckin.mtCadastroCheckinadicionalveiculo.AsBoolean := Switch1.IsChecked;
+    FServiceCheckin.mtCadastroCheckin.Post;
+
+    FServiceCheckin.Salvar;
+    ListarCheckins;
+    tclCadastroCheckin.Previous();
   except
     on E: Exception do
       ShowMessage(E.Message);
@@ -360,6 +425,12 @@ end;
 procedure TfrmPrincipal.SpeedButton1Click(Sender: TObject);
 begin
   tclCadastroCheckin.Previous;
+  FServiceCheckin.mtCadastroCheckin.Cancel;
+end;
+
+procedure TfrmPrincipal.SpeedButton2Click(Sender: TObject);
+begin
+  SalvarCheckin;
 end;
 
 procedure TfrmPrincipal.tabCheckinsClick(Sender: TObject);
@@ -370,11 +441,6 @@ end;
 procedure TfrmPrincipal.tabCheckinsTap(Sender: TObject; const Point: TPointF);
 begin
   ListarCheckins;
-end;
-
-procedure TfrmPrincipal.tabHospedesClick(Sender: TObject);
-begin
-  ListarHospedes;
 end;
 
 procedure TfrmPrincipal.tabHospedesTap(Sender: TObject; const Point: TPointF);
