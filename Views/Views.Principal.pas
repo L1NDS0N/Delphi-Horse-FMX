@@ -107,6 +107,8 @@ type
     Line1: TLine;
     Line3: TLine;
     cbIdHospede: TComboEdit;
+    pnlDatas: TPanel;
+    pnlLblDatas: TPanel;
     procedure FormShow(Sender: TObject);
     procedure Circle1Click(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -198,8 +200,22 @@ end;
 procedure TfrmPrincipal.IncluirCheckins;
 begin
   try
+    ListarCheckins;
+
+    dtEntrada.Date := Now;
+    dtSaida.Date := IncMonth(Now);
+    Switch1.IsChecked := False;
+
+    cbIdHospede.Text := EmptyStr;
+    cbIdHospede.Items.Clear;
+    cbIdHospede.BeginUpdate;
+
+    cbHospede.Enabled := True;
+    cbHospede.Text := EmptyStr;
+
     cbHospede.Items.Clear;
     cbHospede.BeginUpdate;
+
     FServiceHospede.mtPesquisaHospedes.First;
     while not FServiceHospede.mtPesquisaHospedes.Eof do
     begin
@@ -207,15 +223,36 @@ begin
       cbIdHospede.Items.Add(FServiceHospede.mtPesquisaHospedesid.AsString);
       FServiceHospede.mtPesquisaHospedes.Next;
     end;
+
+    FServiceHospede.mtPesquisaHospedes.First;
+    while not FServiceHospede.mtPesquisaHospedes.Eof do
+    begin
+
+      FServiceCheckin.mtPesquisaCheckin.First;
+      while not FServiceCheckin.mtPesquisaCheckin.Eof do
+      begin
+        if (FServiceHospede.mtPesquisaHospedesid.AsInteger = FServiceCheckin.mtPesquisaCheckinhospede.AsInteger) then
+        begin
+          cbHospede.Items.Delete(cbHospede.Items.IndexOf(FServiceCheckin.mtPesquisaCheckinlkphospede.AsString));
+          cbIdHospede.Items.Delete(cbIdHospede.Items.IndexOf(FServiceCheckin.mtPesquisaCheckinhospede.AsString));
+
+        end;
+
+        FServiceCheckin.mtPesquisaCheckin.Next;
+      end;
+
+      FServiceHospede.mtPesquisaHospedes.Next;
+    end;
   finally
-    cbHospede.Enabled := True;
-    cbHospede.Text := EmptyStr;
-    cbIdHospede.Text := EmptyStr;
-    dtEntrada.Date := Now;
-    dtSaida.Date := Now;
-    Switch1.IsChecked := False;
-    cbHospede.SetFocus;
+    if cbHospede.Items.Text = EmptyStr then
+    begin
+      cbHospede.Text := 'Todos os hóspedes estão com as reservas agendadas';
+      cbHospede.Enabled := False;
+    end;
+
+    cbIdHospede.EndUpdate;
     cbHospede.EndUpdate;
+    cbHospede.SetFocus;
   end;
 
   FServiceCheckin.mtCadastroCheckin.Append;
@@ -252,7 +289,7 @@ begin
 
         LFrame.Id := FServiceCheckin.mtPesquisaCheckinid.AsString;
         LFrame.Name := LFrame.ClassName + FServiceCheckin.mtPesquisaCheckinhospede.AsString;
-        LFrame.lblHospede.Text := FServiceCheckin.mtPesquisaCheckinlkpHospede.AsString;
+        LFrame.lblHospede.Text := FServiceCheckin.mtPesquisaCheckinlkphospede.AsString;
         LFrame.lblEntrada.Text := 'Entrada: ' + FServiceCheckin.mtPesquisaCheckindataentrada.AsString;
         LFrame.lblSaida.Text := 'Saída: ' + FServiceCheckin.mtPesquisaCheckindatasaida.AsString;
         LFrame.chkPossuiCarro.IsChecked := FServiceCheckin.mtPesquisaCheckinadicionalveiculo.AsBoolean;
@@ -318,7 +355,7 @@ begin
         procedure(const AResult: TModalResult)
       begin
         if AResult <> mrYes then
-          abort;
+          Abort;
       end);
     FServiceHospede.Delete(AId);
     ASender.DisposeOf;
@@ -336,7 +373,7 @@ begin
       procedure(const AResult: TModalResult)
       begin
         if AResult <> mrYes then
-          abort;
+          Abort;
       end);
     FServiceCheckin.Delete(AId);
     ASender.DisposeOf;

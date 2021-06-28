@@ -27,7 +27,7 @@ object frmPrincipal: TfrmPrincipal
       Size.Width = 800.000000000000000000
       Size.Height = 600.000000000000000000
       Size.PlatformDefault = False
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       TabPosition = PlatformDefault
       Sizes = (
@@ -87,7 +87,7 @@ object frmPrincipal: TfrmPrincipal
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\guest.p' +
               'ng'
           end>
-        IsSelected = False
+        IsSelected = True
         ImageIndex = 1
         Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
@@ -577,7 +577,7 @@ object frmPrincipal: TfrmPrincipal
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\recepti' +
               'onist.png'
           end>
-        IsSelected = True
+        IsSelected = False
         ImageIndex = 0
         Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
@@ -785,60 +785,32 @@ object frmPrincipal: TfrmPrincipal
               TabOrder = 0
               object Panel3: TPanel
                 Align = Client
-                Padding.Left = 100.000000000000000000
+                Padding.Left = 50.000000000000000000
                 Padding.Top = 50.000000000000000000
-                Padding.Right = 100.000000000000000000
+                Padding.Right = 50.000000000000000000
                 Size.Width = 800.000000000000000000
                 Size.Height = 368.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
-                object Label5: TLabel
-                  Align = Top
-                  StyledSettings = [Style]
-                  Position.X = 100.000000000000000000
-                  Position.Y = 210.000000000000000000
-                  Size.Width = 600.000000000000000000
-                  Size.Height = 40.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Family = 'Roboto'
-                  TextSettings.Font.Size = 20.000000000000000000
-                  TextSettings.FontColor = claDimgray
-                  Text = 'Data Sa'#237'da'
-                  TabOrder = 0
-                end
-                object Label6: TLabel
-                  Align = Top
-                  StyledSettings = [Style]
-                  Position.X = 100.000000000000000000
-                  Position.Y = 130.000000000000000000
-                  Size.Width = 600.000000000000000000
-                  Size.Height = 40.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Family = 'Roboto'
-                  TextSettings.Font.Size = 20.000000000000000000
-                  TextSettings.FontColor = claDimgray
-                  Text = 'Data Entrada'
-                  TabOrder = 1
-                end
                 object Label7: TLabel
                   Align = Top
                   StyledSettings = [Style]
-                  Position.X = 100.000000000000000000
+                  Position.X = 50.000000000000000000
                   Position.Y = 50.000000000000000000
-                  Size.Width = 600.000000000000000000
+                  Size.Width = 700.000000000000000000
                   Size.Height = 40.000000000000000000
                   Size.PlatformDefault = False
                   TextSettings.Font.Family = 'Roboto'
                   TextSettings.Font.Size = 20.000000000000000000
                   TextSettings.FontColor = claDimgray
                   Text = 'H'#243'spede'
-                  TabOrder = 2
+                  TabOrder = 0
                 end
                 object cbHospede: TComboEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Top
                   StyleLookup = 'cbHospedeStyle1'
-                  TabOrder = 3
+                  TabOrder = 1
                   DropDownCount = 10
                   ItemHeight = 40.000000000000000000
                   ItemIndex = -1
@@ -846,11 +818,11 @@ object frmPrincipal: TfrmPrincipal
                   TextSettings.Font.Size = 20.000000000000000000
                   TextSettings.Font.StyleExt = {00070000000000000004000000}
                   TextSettings.FontColor = xFF2A2F32
-                  Position.X = 100.000000000000000000
+                  Position.X = 50.000000000000000000
                   Position.Y = 90.000000000000000000
                   Hint = 'Selecione um h'#243'spede'
                   StyledSettings = [Other]
-                  Size.Width = 600.000000000000000000
+                  Size.Width = 700.000000000000000000
                   Size.Height = 40.000000000000000000
                   Size.PlatformDefault = False
                   ParentShowHint = False
@@ -860,7 +832,7 @@ object frmPrincipal: TfrmPrincipal
                     Align = Bottom
                     LineType = Bottom
                     Position.Y = 39.000000000000000000
-                    Size.Width = 600.000000000000000000
+                    Size.Width = 700.000000000000000000
                     Size.Height = 1.000000000000000000
                     Size.PlatformDefault = False
                     Stroke.Color = claDimgray
@@ -875,7 +847,7 @@ object frmPrincipal: TfrmPrincipal
                     ItemIndex = -1
                     TextSettings.Font.Family = 'Roboto'
                     TextSettings.Font.Size = 18.000000000000000000
-                    Position.X = 540.000000000000000000
+                    Position.X = 640.000000000000000000
                     StyledSettings = [Style, FontColor]
                     Enabled = False
                     Margins.Right = 20.000000000000000000
@@ -886,13 +858,13 @@ object frmPrincipal: TfrmPrincipal
                 end
                 object Panel5: TPanel
                   Align = Top
-                  Position.X = 100.000000000000000000
-                  Position.Y = 290.000000000000000000
-                  Size.Width = 600.000000000000000000
+                  Position.X = 50.000000000000000000
+                  Position.Y = 233.000000000000000000
+                  Size.Width = 700.000000000000000000
                   Size.Height = 71.000000000000000000
                   Size.PlatformDefault = False
                   StyleLookup = 'pushpanel'
-                  TabOrder = 5
+                  TabOrder = 3
                   object Label8: TLabel
                     Align = Left
                     StyledSettings = [Style]
@@ -925,59 +897,104 @@ object frmPrincipal: TfrmPrincipal
                     end
                   end
                 end
-                object dtEntrada: TDateEdit
-                  Date = 44372.000000000000000000
-                  TodayDefault = True
-                  DateFormatKind = Long
+                object pnlDatas: TPanel
                   Align = Top
-                  Cursor = crDefault
-                  Position.X = 100.000000000000000000
-                  Position.Y = 170.000000000000000000
-                  Size.Width = 600.000000000000000000
-                  Size.Height = 40.000000000000000000
+                  Position.X = 50.000000000000000000
+                  Position.Y = 177.000000000000000000
+                  Size.Width = 700.000000000000000000
+                  Size.Height = 56.000000000000000000
                   Size.PlatformDefault = False
-                  StyleLookup = 'dtEntradaStyle1'
-                  StyledSettings = []
-                  TabOrder = 6
-                  TextSettings.Font.Family = 'Roboto'
-                  TextSettings.Font.Size = 20.000000000000000000
-                  TextSettings.Font.StyleExt = {00070000000000000004000000}
-                  TextSettings.FontColor = xFF2A2F32
-                  object Line1: TLine
+                  StyleLookup = 'pushpanel'
+                  TabOrder = 4
+                  object dtSaida: TDateEdit
+                    Date = 44375.000000000000000000
+                    TodayDefault = True
+                    DateFormatKind = Long
+                    Align = Right
+                    Padding.Left = -10.000000000000000000
+                    Position.X = 352.000000000000000000
+                    Size.Width = 348.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    StyleLookup = 'dtEntradaStyle1'
+                    StyledSettings = []
+                    TabOrder = 1
+                    TextSettings.Font.Family = 'Roboto'
+                    TextSettings.Font.Size = 20.000000000000000000
+                    TextSettings.Font.StyleExt = {00070000000000000004000000}
+                    TextSettings.FontColor = xFF2A2F32
+                    object Line1: TLine
+                      Align = Left
+                      LineType = Bottom
+                      Position.X = -10.000000000000000000
+                      RotationAngle = 90.000000000000000000
+                      Size.Width = 57.000000000000000000
+                      Size.Height = 55.000000000000000000
+                      Size.PlatformDefault = False
+                      Stroke.Color = claDimgray
+                    end
+                  end
+                  object Line3: TLine
                     Align = Bottom
                     LineType = Bottom
-                    Position.Y = 39.000000000000000000
-                    Size.Width = 600.000000000000000000
+                    Position.Y = 55.000000000000000000
+                    Size.Width = 700.000000000000000000
                     Size.Height = 1.000000000000000000
                     Size.PlatformDefault = False
                     Stroke.Color = claDimgray
                   end
-                end
-                object dtSaida: TDateEdit
-                  Date = 44372.000000000000000000
-                  TodayDefault = True
-                  DateFormatKind = Long
-                  Align = Top
-                  Position.X = 100.000000000000000000
-                  Position.Y = 250.000000000000000000
-                  Size.Width = 600.000000000000000000
-                  Size.Height = 40.000000000000000000
-                  Size.PlatformDefault = False
-                  StyleLookup = 'dtEntradaStyle1'
-                  StyledSettings = []
-                  TabOrder = 7
-                  TextSettings.Font.Family = 'Roboto'
-                  TextSettings.Font.Size = 20.000000000000000000
-                  TextSettings.Font.StyleExt = {00070000000000000004000000}
-                  TextSettings.FontColor = xFF2A2F32
-                  object Line3: TLine
-                    Align = Bottom
-                    LineType = Bottom
-                    Position.Y = 39.000000000000000000
-                    Size.Width = 600.000000000000000000
-                    Size.Height = 1.000000000000000000
+                  object dtEntrada: TDateEdit
+                    Date = 44375.000000000000000000
+                    TodayDefault = True
+                    DateFormatKind = Long
+                    Align = Left
+                    Cursor = crDefault
+                    Size.Width = 337.000000000000000000
+                    Size.Height = 55.000000000000000000
                     Size.PlatformDefault = False
-                    Stroke.Color = claDimgray
+                    StyleLookup = 'dtEntradaStyle1'
+                    StyledSettings = []
+                    TabOrder = 0
+                    TextSettings.Font.Family = 'Roboto'
+                    TextSettings.Font.Size = 20.000000000000000000
+                    TextSettings.Font.StyleExt = {00070000000000000004000000}
+                    TextSettings.FontColor = xFF2A2F32
+                  end
+                end
+                object pnlLblDatas: TPanel
+                  Align = Top
+                  Margins.Top = 10.000000000000000000
+                  Position.X = 50.000000000000000000
+                  Position.Y = 140.000000000000000000
+                  Size.Width = 700.000000000000000000
+                  Size.Height = 37.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'pushpanel'
+                  TabOrder = 5
+                  object Label6: TLabel
+                    Align = Left
+                    StyledSettings = [Style]
+                    Size.Width = 137.000000000000000000
+                    Size.Height = 37.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.Font.Family = 'Roboto'
+                    TextSettings.Font.Size = 20.000000000000000000
+                    TextSettings.FontColor = claDimgray
+                    Text = 'Data Entrada'
+                    TabOrder = 0
+                  end
+                  object Label5: TLabel
+                    Align = Right
+                    StyledSettings = [Style]
+                    Position.X = 576.000000000000000000
+                    Size.Width = 124.000000000000000000
+                    Size.Height = 37.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.Font.Family = 'Roboto'
+                    TextSettings.Font.Size = 20.000000000000000000
+                    TextSettings.FontColor = claDimgray
+                    Text = 'Data Sa'#237'da'
+                    TabOrder = 1
                   end
                 end
               end
