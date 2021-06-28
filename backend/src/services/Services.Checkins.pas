@@ -27,13 +27,13 @@ type
     qryCadastroCheckinsID: TFDAutoIncField;
     qryCadastroCheckinshospede: TIntegerField;
     qryCadastroCheckinsdataentrada: TDateField;
-    qryCadastroCheckinsdatasaida: TStringField;
     qryCadastroCheckinsadicionalveiculo: TBooleanField;
     qryPesquisaCheckinsID: TFDAutoIncField;
     qryPesquisaCheckinshospede: TIntegerField;
     qryPesquisaCheckinsdataentrada: TDateField;
-    qryPesquisaCheckinsdatasaida: TStringField;
     qryPesquisaCheckinsadicionalveiculo: TBooleanField;
+    qryPesquisaCheckinsdatasaida: TDateField;
+    qryCadastroCheckinsdatasaida: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     private
       { Private declarations }

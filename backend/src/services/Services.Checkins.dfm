@@ -26,16 +26,15 @@ object ServiceCheckins: TServiceCheckins
       FieldName = 'dataentrada'
       Origin = 'dataentrada'
     end
-    object qryCadastroCheckinsdatasaida: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'datasaida'
-      Origin = 'datasaida'
-      Size = 100
-    end
     object qryCadastroCheckinsadicionalveiculo: TBooleanField
       AutoGenerateValue = arDefault
       FieldName = 'adicionalveiculo'
       Origin = 'adicionalveiculo'
+    end
+    object qryCadastroCheckinsdatasaida: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'datasaida'
+      Origin = 'datasaida'
     end
   end
   object qryPesquisaCheckins: TFDQuery
@@ -60,16 +59,15 @@ object ServiceCheckins: TServiceCheckins
       FieldName = 'dataentrada'
       Origin = 'dataentrada'
     end
-    object qryPesquisaCheckinsdatasaida: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'datasaida'
-      Origin = 'datasaida'
-      Size = 100
-    end
     object qryPesquisaCheckinsadicionalveiculo: TBooleanField
       AutoGenerateValue = arDefault
       FieldName = 'adicionalveiculo'
       Origin = 'adicionalveiculo'
+    end
+    object qryPesquisaCheckinsdatasaida: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'datasaida'
+      Origin = 'datasaida'
     end
   end
 end
