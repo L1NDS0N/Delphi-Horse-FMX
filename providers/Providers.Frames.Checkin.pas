@@ -16,7 +16,8 @@ uses
   FMX.StdCtrls,
   FMX.Objects,
   FMX.Controls.Presentation,
-  Providers.Types, FMX.Ani;
+  Providers.Types,
+  FMX.Ani;
 
 type
   TFrameCheckin = class(TFrame)
@@ -35,7 +36,7 @@ type
     procedure crlDeleteClick(Sender: TObject);
     procedure crlDeleteTap(Sender: TObject; const Point: TPointF);
     procedure crlEditTap(Sender: TObject; const Point: TPointF);
-    procedure retContentClick(Sender: TObject);
+    procedure retContentDblClick(Sender: TObject);
     private
       FId: string;
       FOnDelete: TEventCallBack;
@@ -82,7 +83,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TFrameCheckin.retContentClick(Sender: TObject);
+procedure TFrameCheckin.retContentDblClick(Sender: TObject);
 begin
   {$IFDEF MSWINDOWS}
   if Assigned(FOnUpdate) then

@@ -13,7 +13,7 @@ object FrameCheckin: TFrameCheckin
     Size.Height = 99.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
-    OnClick = retContentClick
+    OnDblClick = retContentDblClick
     object lblEntrada: TLabel
       Align = Top
       StyledSettings = []
