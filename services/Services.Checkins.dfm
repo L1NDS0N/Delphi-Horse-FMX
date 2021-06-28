@@ -40,24 +40,16 @@ object ServiceCheckin: TServiceCheckin
     end
   end
   object mtPesquisaCheckin: TFDMemTable
-    FieldDefs = <>
-    IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
-    FormatOptions.AssignedValues = [fvMaxBcdPrecision, fvMaxBcdScale]
-    FormatOptions.MaxBcdPrecision = 2147483647
-    FormatOptions.MaxBcdScale = 1073741823
-    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
-    ResourceOptions.Persistent = True
+    ResourceOptions.AssignedValues = [rvSilentMode]
     ResourceOptions.SilentMode = True
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    StoreDefs = True
-    Left = 72
-    Top = 80
+    Left = 80
+    Top = 88
     object mtPesquisaCheckinid: TIntegerField
-      AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
     object mtPesquisaCheckindataentrada: TDateField
@@ -72,9 +64,9 @@ object ServiceCheckin: TServiceCheckin
     object mtPesquisaCheckinhospede: TIntegerField
       FieldName = 'hospede'
     end
-    object mtPesquisaCheckinlkpHospede: TStringField
+    object mtPesquisaCheckinlkphospede: TStringField
       FieldKind = fkLookup
-      FieldName = 'lkpHospede'
+      FieldName = 'lkphospede'
       LookupDataSet = ServiceHospedes.mtPesquisaHospedes
       LookupKeyFields = 'id'
       LookupResultField = 'nome'

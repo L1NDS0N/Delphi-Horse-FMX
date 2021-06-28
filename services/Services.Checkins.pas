@@ -28,14 +28,14 @@ type
     mtCadastroCheckindatasaida: TDateField;
     mtCadastroCheckinadicionalveiculo: TBooleanField;
     mtCadastroCheckinhospede: TIntegerField;
+    mtCadastroCheckinlkphospede: TStringField;
     mtPesquisaCheckin: TFDMemTable;
     mtPesquisaCheckinid: TIntegerField;
     mtPesquisaCheckindataentrada: TDateField;
     mtPesquisaCheckindatasaida: TDateField;
     mtPesquisaCheckinadicionalveiculo: TBooleanField;
     mtPesquisaCheckinhospede: TIntegerField;
-    mtPesquisaCheckinlkpHospede: TStringField;
-    mtCadastroCheckinlkphospede: TStringField;
+    mtPesquisaCheckinlkphospede: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     private
       { Private declarations }
