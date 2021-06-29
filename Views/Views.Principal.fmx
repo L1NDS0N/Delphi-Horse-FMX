@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Border.Styling = False
-  BorderIcons = [biSystemMenu]
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'H'#243'spedes - Hotel Transilv'#226'nia'
   ClientHeight = 600
@@ -27,7 +27,7 @@ object frmPrincipal: TfrmPrincipal
       Size.Width = 800.000000000000000000
       Size.Height = 600.000000000000000000
       Size.PlatformDefault = False
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       TabPosition = PlatformDefault
       Sizes = (
@@ -87,7 +87,7 @@ object frmPrincipal: TfrmPrincipal
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\guest.p' +
               'ng'
           end>
-        IsSelected = True
+        IsSelected = False
         ImageIndex = 1
         Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
@@ -166,11 +166,11 @@ object frmPrincipal: TfrmPrincipal
               object vsbPesquisa: TVertScrollBox
                 Align = Client
                 Size.Width = 800.000000000000000000
-                Size.Height = 463.000000000000000000
+                Size.Height = 423.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
                 Viewport.Width = 800.000000000000000000
-                Viewport.Height = 463.000000000000000000
+                Viewport.Height = 423.000000000000000000
               end
               object pnlFooter: TPanel
                 Align = Bottom
@@ -178,6 +178,7 @@ object frmPrincipal: TfrmPrincipal
                 Size.Width = 800.000000000000000000
                 Size.Height = 48.000000000000000000
                 Size.PlatformDefault = False
+                StyleLookup = 'pushpanel'
                 TabOrder = 1
                 object retFooter: TRectangle
                   Align = Bottom
@@ -261,6 +262,30 @@ object frmPrincipal: TfrmPrincipal
                       TriggerInverse = 'IsMouseOver=false'
                     end
                   end
+                end
+              end
+              object pnlPesquisaHospedes: TPanel
+                Align = Top
+                Size.Width = 800.000000000000000000
+                Size.Height = 40.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = 'pushpanel'
+                TabOrder = 2
+                object edtPesquisaHospedes: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Center
+                  TabOrder = 0
+                  ReturnKeyType = Done
+                  TextSettings.Font.Family = 'Roboto'
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = claDimgray
+                  TextSettings.HorzAlign = Center
+                  Size.Width = 600.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = #55357#56589' Insira uma informa'#231#227'o do h'#243'spede para filtrar '#55357#56590
+                  StyledSettings = [Style]
+                  OnTyping = edtPesquisaHospedesTyping
                 end
               end
             end
@@ -577,7 +602,7 @@ object frmPrincipal: TfrmPrincipal
               'C:\Users\Lindson Fran'#231'a\Desktop\HotelTransilvania\assets\recepti' +
               'onist.png'
           end>
-        IsSelected = False
+        IsSelected = True
         ImageIndex = 0
         Size.Width = 140.000000000000000000
         Size.Height = 41.000000000000000000
@@ -621,11 +646,11 @@ object frmPrincipal: TfrmPrincipal
               object vsbCheckin: TVertScrollBox
                 Align = Client
                 Size.Width = 800.000000000000000000
-                Size.Height = 463.000000000000000000
+                Size.Height = 423.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
                 Viewport.Width = 800.000000000000000000
-                Viewport.Height = 463.000000000000000000
+                Viewport.Height = 423.000000000000000000
               end
               object Panel1: TPanel
                 Align = Bottom
@@ -690,6 +715,30 @@ object frmPrincipal: TfrmPrincipal
                       TriggerInverse = 'IsMouseOver=false'
                     end
                   end
+                end
+              end
+              object pnlPesquisarCheckins: TPanel
+                Align = Top
+                Size.Width = 800.000000000000000000
+                Size.Height = 40.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = 'pushpanel'
+                TabOrder = 2
+                object edtPesquisarCheckins: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Center
+                  TabOrder = 0
+                  ReturnKeyType = Done
+                  TextSettings.Font.Family = 'Roboto'
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = claDimgray
+                  TextSettings.HorzAlign = Center
+                  Size.Width = 600.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = #55357#56589' Insira uma informa'#231#227'o do checkin exceto nome, para filtrar '#55357#56590
+                  StyledSettings = [Style]
+                  OnTyping = edtPesquisarCheckinsTyping
                 end
               end
             end
@@ -847,10 +896,10 @@ object frmPrincipal: TfrmPrincipal
                     ItemIndex = -1
                     TextSettings.Font.Family = 'Roboto'
                     TextSettings.Font.Size = 18.000000000000000000
-                    Position.X = 640.000000000000000000
+                    Position.X = 630.000000000000000000
                     StyledSettings = [Style, FontColor]
                     Enabled = False
-                    Margins.Right = 20.000000000000000000
+                    Margins.Right = 30.000000000000000000
                     Size.Width = 40.000000000000000000
                     Size.Height = 39.000000000000000000
                     Size.PlatformDefault = False
@@ -907,7 +956,7 @@ object frmPrincipal: TfrmPrincipal
                   StyleLookup = 'pushpanel'
                   TabOrder = 4
                   object dtSaida: TDateEdit
-                    Date = 44375.000000000000000000
+                    Date = 44376.000000000000000000
                     TodayDefault = True
                     DateFormatKind = Long
                     Align = Right
@@ -944,7 +993,7 @@ object frmPrincipal: TfrmPrincipal
                     Stroke.Color = claDimgray
                   end
                   object dtEntrada: TDateEdit
-                    Date = 44375.000000000000000000
+                    Date = 44376.000000000000000000
                     TodayDefault = True
                     DateFormatKind = Long
                     Align = Left
@@ -1925,7 +1974,7 @@ object frmPrincipal: TfrmPrincipal
           064011536F75726365526563742E426F74746F6D05000000000000809A084000
           0013546F756368416E696D6174696F6E2E4C696E6B0E0000000000}
       end>
-    Left = 744
-    Top = 96
+    Left = 752
+    Top = 504
   end
 end

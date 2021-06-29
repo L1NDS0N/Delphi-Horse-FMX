@@ -31,7 +31,8 @@ uses
   FMX.DateTimeCtrls,
   FMX.ComboEdit,
   FMX.EditBox,
-  FMX.ComboTrackBar;
+  FMX.ComboTrackBar,
+  FMX.Menus;
 
 type
   TfrmPrincipal = class(TForm)
@@ -109,6 +110,10 @@ type
     cbIdHospede: TComboEdit;
     pnlDatas: TPanel;
     pnlLblDatas: TPanel;
+    pnlPesquisaHospedes: TPanel;
+    edtPesquisaHospedes: TEdit;
+    pnlPesquisarCheckins: TPanel;
+    edtPesquisarCheckins: TEdit;
     procedure FormShow(Sender: TObject);
     procedure Circle1Click(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -122,6 +127,8 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure cbHospedeChangeTracking(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
+    procedure edtPesquisaHospedesTyping(Sender: TObject);
+    procedure edtPesquisarCheckinsTyping(Sender: TObject);
     private
       FServiceHospede: TServiceHospedes;
       FServiceCheckin: TServiceCheckin;
@@ -147,7 +154,8 @@ implementation
 
 uses
   Providers.Frames.Hospede,
-  Providers.Frames.Checkin;
+  Providers.Frames.Checkin,
+  Data.DB;
 
 {$R *.fmx}
 
@@ -177,6 +185,27 @@ begin
   IncluirCheckins;
 end;
 
+procedure TfrmPrincipal.edtPesquisaHospedesTyping(Sender: TObject);
+begin
+  FServiceHospede.mtPesquisaHospedes.Filtered := false;
+  FServiceHospede.mtPesquisaHospedes.FilterOptions := [foCaseInsensitive];
+  FServiceHospede.mtPesquisaHospedes.Filter := 'nome like ' + QuotedStr('%' + edtPesquisaHospedes.Text + '%') +
+    ' or telefone like ' + QuotedStr('%' + edtPesquisaHospedes.Text + '%') + ' or documento like ' +
+    QuotedStr('%' + edtPesquisaHospedes.Text + '%');
+  FServiceHospede.mtPesquisaHospedes.Filtered := true;
+  ListarHospedes;
+end;
+
+procedure TfrmPrincipal.edtPesquisarCheckinsTyping(Sender: TObject);
+begin
+  FServiceCheckin.mtPesquisaCheckin.Filtered := false;
+  FServiceCheckin.mtPesquisaCheckin.FilterOptions := [foCaseInsensitive];
+  FServiceCheckin.mtPesquisaCheckin.Filter := 'dataentrada like ' + QuotedStr('%' + edtPesquisarCheckins.Text + '%') +
+    ' OR datasaida like ' + QuotedStr('%' + edtPesquisarCheckins.Text + '%');
+  FServiceCheckin.mtPesquisaCheckin.Filtered := true;
+  ListarCheckins;
+end;
+
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   FServiceHospede := TServiceHospedes.Create(Self);
@@ -198,19 +227,21 @@ begin
 end;
 
 procedure TfrmPrincipal.IncluirCheckins;
+var
+  IndiceHospede: Integer;
 begin
   try
     ListarCheckins;
 
     dtEntrada.Date := Now;
     dtSaida.Date := IncMonth(Now);
-    Switch1.IsChecked := False;
+    Switch1.IsChecked := false;
 
     cbIdHospede.Text := EmptyStr;
     cbIdHospede.Items.Clear;
     cbIdHospede.BeginUpdate;
 
-    cbHospede.Enabled := True;
+    cbHospede.Enabled := true;
     cbHospede.Text := EmptyStr;
 
     cbHospede.Items.Clear;
@@ -233,8 +264,9 @@ begin
       begin
         if (FServiceHospede.mtPesquisaHospedesid.AsInteger = FServiceCheckin.mtPesquisaCheckinhospede.AsInteger) then
         begin
-          cbHospede.Items.Delete(cbHospede.Items.IndexOf(FServiceCheckin.mtPesquisaCheckinlkphospede.AsString));
-          cbIdHospede.Items.Delete(cbIdHospede.Items.IndexOf(FServiceCheckin.mtPesquisaCheckinhospede.AsString));
+          IndiceHospede := cbIdHospede.Items.IndexOf(FServiceCheckin.mtPesquisaCheckinhospede.AsString);
+          cbHospede.Items.Delete(IndiceHospede);
+          cbIdHospede.Items.Delete(IndiceHospede);
 
         end;
 
@@ -247,7 +279,7 @@ begin
     if cbHospede.Items.Text = EmptyStr then
     begin
       cbHospede.Text := 'Todos os hóspedes estão com as reservas agendadas';
-      cbHospede.Enabled := False;
+      cbHospede.Enabled := false;
     end;
 
     cbIdHospede.EndUpdate;
@@ -402,7 +434,7 @@ begin
   try
     FServiceCheckin.GetById(AId);
     cbHospede.Items.Clear;
-    cbHospede.Enabled := False;
+    cbHospede.Enabled := false;
     cbIdHospede.Text := FServiceCheckin.mtCadastroCheckinhospede.AsString;
     cbHospede.Text := FServiceCheckin.mtCadastroCheckinlkpHospede.AsString;
     dtEntrada.DateTime := FServiceCheckin.mtCadastroCheckindataentrada.AsDateTime;
