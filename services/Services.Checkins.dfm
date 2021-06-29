@@ -71,6 +71,7 @@ object ServiceCheckin: TServiceCheckin
       LookupKeyFields = 'id'
       LookupResultField = 'nome'
       KeyFields = 'hospede'
+      LookupCache = True
       Lookup = True
     end
   end
